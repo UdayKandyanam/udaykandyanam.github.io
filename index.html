@@ -250,6 +250,11 @@
 
         :focus-visible { outline: 2px solid #0e7a63; outline-offset: 2px; }
           .outcome-lead { margin-bottom: 10px; }
+        .sample { border: 1px solid var(--line-strong, #d8d0bd); border-radius: 12px; padding: 16px 18px; margin: 18px 0; background: var(--surface); }
+        .sample h4 { margin: 0 0 6px; }
+        .sample p { margin: 6px 0; }
+        .sample .who { font-weight: 700; }
+        .sample .sample-note { font-size: 13px; color: var(--ink-2); }
     </style>
 <link rel="canonical" href="https://udaykandyanam.com/" />
     <meta property="og:type" content="website" />
@@ -339,8 +344,16 @@
                   <p data-step-body>The engineer posts the symptom in Microsoft Teams, in plain language, with the service name. No new tool to learn, no ticket form to fill in first.</p>
                 </div>
               </div>
+              <p><strong>Under the hood:</strong> a multi-step LangGraph workflow. The agent gathers platform context through platform APIs and observability signals, reasons over what it finds step by step, and replies in the thread.</p>
+              <p><strong>Safety boundary:</strong> the agent diagnoses and recommends. It does not change production systems; engineers review the diagnosis and make any changes themselves.</p>
+              <div class="sample">
+                <h4>Illustrative example</h4>
+                <p class="sample-note">A synthetic exchange in the shape of a real one. The service name is invented; this is not a transcript.</p>
+                <p><span class="who">Engineer:</span> claims-api is failing its health checks since the last deployment. What changed?</p>
+                <p><span class="who">Agent:</span> Likely cause: memory pressure after the latest deployment; the platform keeps restarting the service. Context gathered: the recent deployment event, the failing health checks, and the service resource signals. Next steps: compare memory limits with the previous release, roll back if the restarts continue, and work through the service health-check runbook.</p>
+              </div>
               <div class="stack" aria-label="Technologies">
-                <span>LLM agents</span><span>Microsoft Teams</span><span>Python</span><span>Platform APIs</span><span>Observability signals</span>
+                <span>LLM agents</span><span>Microsoft Teams</span><span>Python</span><span>Platform APIs</span><span>Observability signals</span><span>LangChain</span><span>LangGraph</span><span>Tool calling</span>
               </div>
             </div>
           </article>
@@ -355,6 +368,7 @@
               <p class="outcome-lead"><strong>Outcome:</strong> repeat platform questions answered from internal documentation and runbooks, without interrupting a platform engineer.</p>
             <p>Platform teams answer the same questions every week: how a service gets onboarded, where a runbook lives, what a pipeline stage is waiting on. The answers exist, scattered across internal documentation, runbooks, and portal pages.</p>
               <p>The knowledge assistant <strong>answers platform questions directly from that internal material</strong>, so engineers get the procedure, the link, and the context in one reply instead of interrupting a platform engineer or digging through search results.</p>
+              <p><strong>Under the hood:</strong> retrieval over internal platform documentation and runbooks. Answers are grounded in that material and come back with the procedure, the source link, and the context, not model guesswork.</p>
               <ul class="did">
                 <li><strong>Grounded in internal sources:</strong> answers drawn from platform documentation and runbooks, not model guesswork</li>
                 <li><strong>Built for repeat questions:</strong> onboarding, service lifecycle, and how-to questions the team fields daily</li>
@@ -511,7 +525,7 @@
               <p class="note">Linux systems administration, the foundation everything since builds on.</p>
             </div>
           </div>
-          <p class="cert-line">EDUCATION · M.S., Wilmington University (Jun 2018) · B.Tech., JNTU (2014) &nbsp;&nbsp;|&nbsp;&nbsp; CERTIFICATION · AWS Certified Solutions Architect (Associate)</p>
+          <p class="cert-line">EDUCATION · M.S., Wilmington University (Jun 2018) · B.Tech., JNTU (2014) &nbsp;&nbsp;|&nbsp;&nbsp; CERTIFICATIONS · GenAI and Predictive AI Architecture Foundations · Advanced RAG with Vector Databases · AWS Certified Solutions Architect (Associate) · Certified Kubernetes Administrator (CKA)</p>
         </div>
       </section>
 
