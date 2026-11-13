@@ -255,6 +255,12 @@
         .sample p { margin: 6px 0; }
         .sample .who { font-weight: 700; }
         .sample .sample-note { font-size: 13px; color: var(--ink-2); }
+        .flow-diagram { margin: 18px 0 6px; }
+        .flow-diagram svg { width: 100%; height: auto; display: block; }
+        .flow-diagram figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 8px; }
+        .flow-diagram .fd-box { fill: var(--chip); stroke: var(--line-strong); }
+        .flow-diagram .fd-text { fill: var(--ink); font-family: "Manrope", system-ui, sans-serif; font-size: 13.5px; font-weight: 600; }
+        .flow-diagram .fd-arrow { stroke: var(--teal); stroke-width: 2; }
     </style>
 <link rel="canonical" href="https://udaykandyanam.com/" />
     <meta property="og:type" content="website" />
@@ -346,12 +352,32 @@
               </div>
               <p><strong>Under the hood:</strong> a multi-step LangGraph workflow. The agent gathers platform context through platform APIs and observability signals, reasons over what it finds step by step, and replies in the thread.</p>
               <p><strong>Safety boundary:</strong> the agent diagnoses and recommends. It does not change production systems; engineers review the diagnosis and make any changes themselves.</p>
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 256" role="img" aria-label="Flow diagram: an engineer posts in Microsoft Teams, a LangGraph workflow gathers context from platform APIs and observability signals, and the diagnosis and next steps come back in the thread.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Engineer posts in Microsoft Teams</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">LangGraph workflow</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Platform APIs and observability signals</text>
+                  <line class="fd-arrow" x1="280" y1="184" x2="280" y2="200" />
+                  <polygon points="274,198 286,198 280,208" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="208" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="235" text-anchor="middle">Diagnosis and next steps in the thread</text>
+                </svg>
+                <figcaption>The agent diagnoses and recommends. Engineers make any production changes.</figcaption>
+              </figure>
               <div class="sample">
                 <h4>Illustrative example</h4>
                 <p class="sample-note">A synthetic exchange in the shape of a real one. The service name is invented; this is not a transcript.</p>
                 <p><span class="who">Engineer:</span> claims-api is failing its health checks since the last deployment. What changed?</p>
                 <p><span class="who">Agent:</span> Likely cause: memory pressure after the latest deployment; the platform keeps restarting the service. Context gathered: the recent deployment event, the failing health checks, and the service resource signals. Next steps: compare memory limits with the previous release, roll back if the restarts continue, and work through the service health-check runbook.</p>
               </div>
+              <p>The internal agent cannot be shown. <a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">KubePulse</a> is a personal project in the same problem space: a Go CLI that reads a cluster snapshot and reports what is failing, the evidence, and the next step.</p>
               <div class="stack" aria-label="Technologies">
                 <span>LLM agents</span><span>Microsoft Teams</span><span>Python</span><span>Platform APIs</span><span>Observability signals</span><span>LangChain</span><span>LangGraph</span><span>Tool calling</span>
               </div>
@@ -369,11 +395,26 @@
             <p>Platform teams answer the same questions every week: how a service gets onboarded, where a runbook lives, what a pipeline stage is waiting on. The answers exist, scattered across internal documentation, runbooks, and portal pages.</p>
               <p>The knowledge assistant <strong>answers platform questions directly from that internal material</strong>, so engineers get the procedure, the link, and the context in one reply instead of interrupting a platform engineer or digging through search results.</p>
               <p><strong>Under the hood:</strong> retrieval over internal platform documentation and runbooks. Answers are grounded in that material and come back with the procedure, the source link, and the context, not model guesswork.</p>
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: a platform question goes through retrieval over internal documentation and runbooks, and the answer comes back with the procedure, the source link, and context.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Platform question</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">Retrieval over internal documentation and runbooks</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Answer with the procedure, the source link, and context</text>
+                </svg>
+              </figure>
               <ul class="did">
                 <li><strong>Grounded in internal sources:</strong> answers drawn from platform documentation and runbooks, not model guesswork</li>
                 <li><strong>Built for repeat questions:</strong> onboarding, service lifecycle, and how-to questions the team fields daily</li>
                 <li><strong>Part of the platform, not a side demo:</strong> maintained alongside the internal developer platform it explains</li>
               </ul>
+              <p><a href="https://github.com/UdayKandyanam/runbook-assistant" target="_blank" rel="noopener">Runbook Assistant</a> is a personal project built on the same idea: it answers questions from a folder of runbooks and cites the file and section behind each answer.</p>
               <div class="stack" aria-label="Technologies">
                 <span>LLM agents</span><span>LangChain</span><span>LangGraph</span><span>Python</span><span>Internal knowledge bases</span>
               </div>
@@ -510,13 +551,13 @@
               <span class="when">Jun 2021 to Jun 2023</span>
               <div><span class="role">DevOps Engineer</span> <span class="org">· Best Buy</span></div>
               <span class="place">Remote</span>
-              <p class="note">CI/CD with Jenkins and Azure DevOps.</p>
+              <p class="note">CI/CD with Jenkins and Azure DevOps. CI/CD for 50+ applications; automated provisioning cut provisioning time by 70%.</p>
             </div>
             <div class="xp-row">
               <span class="when">Aug 2018 to May 2021</span>
               <div><span class="role">DevSecOps Engineer</span> <span class="org">· AIG</span></div>
               <span class="place">Charlotte, NC</span>
-              <p class="note">DevSecOps and cloud infrastructure, including CloudFormation.</p>
+              <p class="note">DevSecOps and cloud infrastructure, including CloudFormation. Release cycles down 40% through application and database automation; SSO integrated across the DevOps tooling.</p>
             </div>
             <div class="xp-row">
               <span class="when">Jan 2014 to Aug 2015</span>
