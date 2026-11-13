@@ -249,7 +249,8 @@
       }
 
         :focus-visible { outline: 2px solid #0e7a63; outline-offset: 2px; }
-      </style>
+          .outcome-lead { margin-bottom: 10px; }
+    </style>
 <link rel="canonical" href="https://udaykandyanam.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://udaykandyanam.com/" />
@@ -273,6 +274,7 @@
           <nav aria-label="Page sections">
             <a href="#work">Work</a>
             <a href="#platform">Platform</a>
+            <a href="#decisions">Decisions</a>
             <a href="#experience">Experience</a>
             <a href="#skills">Skills</a>
             <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
@@ -313,7 +315,7 @@
       <section id="work">
         <div class="wrap">
           <div class="sec-head"><span class="no">01</span><h2>Featured work</h2></div>
-          <p class="sec-sub">Three builds from the current role at UnitedHealth Group. The first two are LLM agents used by platform engineers; the third is the automation layer underneath them. Internal systems, so the detail here is the shape of the work rather than screenshots.</p>
+          <p class="sec-sub">One connected platform at UnitedHealth Group, not a set of side projects: shared platform services, automation, and developer tooling that hundreds of microservices run on. The first two builds below are LLM agents used by platform engineers, the third is the automation layer underneath them, and the systems after that are the portal, data pipeline, and delivery platform they sit on. Internal systems, so the detail here is the shape of the work rather than screenshots.</p>
 
           <article class="project reveal">
             <div class="p-media">
@@ -322,7 +324,8 @@
             <div>
               <span class="p-tag">LLM agent · Incident diagnosis</span>
               <h3>Teams Issue-Diagnosis Agent</h3>
-              <p>When a service misbehaves, the first questions are always the same, and the answers live in five different tools. This agent meets engineers where the conversation already happens, inside Microsoft Teams, and does the gathering for them.</p>
+              <p class="outcome-lead"><strong>Outcome:</strong> engineers get a diagnosis with concrete next steps inside the Teams thread where they reported the issue.</p>
+            <p>When a service misbehaves, the first questions are always the same, and the answers live in five different tools. This agent meets engineers where the conversation already happens, inside Microsoft Teams, and does the gathering for them.</p>
               <p>An engineer describes the issue in plain language. The agent <strong>pulls the platform context around that service</strong>, works through the likely causes, and hands back a diagnosis with concrete next steps, instead of a blank search box and a pile of dashboards.</p>
               <div class="stepper" data-stepper>
                 <div class="step-tabs" role="tablist" aria-label="How the diagnosis agent works">
@@ -349,7 +352,8 @@
             <div>
               <span class="p-tag">LLM agent · Developer experience</span>
               <h3>Platform Knowledge Assistant</h3>
-              <p>Platform teams answer the same questions every week: how a service gets onboarded, where a runbook lives, what a pipeline stage is waiting on. The answers exist, scattered across internal documentation, runbooks, and portal pages.</p>
+              <p class="outcome-lead"><strong>Outcome:</strong> repeat platform questions answered from internal documentation and runbooks, without interrupting a platform engineer.</p>
+            <p>Platform teams answer the same questions every week: how a service gets onboarded, where a runbook lives, what a pipeline stage is waiting on. The answers exist, scattered across internal documentation, runbooks, and portal pages.</p>
               <p>The knowledge assistant <strong>answers platform questions directly from that internal material</strong>, so engineers get the procedure, the link, and the context in one reply instead of interrupting a platform engineer or digging through search results.</p>
               <ul class="did">
                 <li><strong>Grounded in internal sources:</strong> answers drawn from platform documentation and runbooks, not model guesswork</li>
@@ -369,7 +373,8 @@
             <div>
               <span class="p-tag">Automation · Kubernetes platform</span>
               <h3>Kubernetes Automation and Platform APIs</h3>
-              <p>Running hundreds of microservices by hand means the same operational tasks repeated daily: provisioning, lifecycle changes, routine cluster operations. Each one is a chance for drift and a slow, manual queue for product teams.</p>
+              <p class="outcome-lead"><strong>Outcome:</strong> routine Kubernetes operations became self-service through platform APIs, cutting manual operations by 70%.</p>
+            <p>Running hundreds of microservices by hand means the same operational tasks repeated daily: provisioning, lifecycle changes, routine cluster operations. Each one is a chance for drift and a slow, manual queue for product teams.</p>
               <p>Internal platform APIs, written in <strong>Go and Python</strong>, turned those recurring Kubernetes operations and service lifecycle tasks into self-service automation that teams call directly.</p>
               <ul class="did">
                 <li><strong>API-first operations:</strong> Kubernetes operations and service lifecycle management exposed as internal platform APIs</li>
@@ -399,7 +404,8 @@
                 <div class="where">UNITEDHEALTH GROUP</div>
               </div>
               <div>
-                <p>Built the UI for an internal platform tool that <strong>brings everything about a service into one place</strong>: the security portal, the GitHub repository list for each service, a vulnerability dashboard, and the application and platform information engineers otherwise hunt across tools.</p>
+                <p class="outcome-lead"><strong>Outcome:</strong> engineers start from one portal per service instead of hunting across separate tools.</p>
+            <p>Built the UI for an internal platform tool that <strong>brings everything about a service into one place</strong>: the security portal, the GitHub repository list for each service, a vulnerability dashboard, and the application and platform information engineers otherwise hunt across tools.</p>
                 <p>One portal per service means one starting point for ownership, security posture, and platform status.</p>
               </div>
             </div>
@@ -409,7 +415,8 @@
                 <div class="where">UNITEDHEALTH GROUP</div>
               </div>
               <div>
-                <p>An event-driven pipeline in <strong>Python and Go</strong> that consumes GitHub repository creation and application deployment events, transforms the operational metadata, and loads it into <strong>PostgreSQL</strong>.</p>
+                <p class="outcome-lead"><strong>Outcome:</strong> the developer dashboard stays current as repository and deployment events happen, rather than by manual inventory.</p>
+            <p>An event-driven pipeline in <strong>Python and Go</strong> that consumes GitHub repository creation and application deployment events, transforms the operational metadata, and loads it into <strong>PostgreSQL</strong>.</p>
                 <p>The pipeline powers the internal developer dashboard, keeping service and deployment data current as events happen rather than by manual inventory.</p>
               </div>
             </div>
@@ -419,7 +426,8 @@
                 <div class="where">UNITEDHEALTH GROUP</div>
               </div>
               <div>
-                <p>Standardised CI/CD across services and migrated observability to <strong>Dynatrace SaaS across 100+ services</strong>, work recognised in LinkedIn recommendations from the Principal Engineer and Director on the team.</p>
+                <p class="outcome-lead"><strong>Outcome:</strong> standardised CI/CD and a completed observability migration, recognised in recommendations from the Principal Engineer and Director on the team.</p>
+            <p>Standardised CI/CD across services and migrated observability to <strong>Dynatrace SaaS across 100+ services</strong>, work recognised in LinkedIn recommendations from the Principal Engineer and Director on the team.</p>
                 <p>Also part of the platform-wide remit: SLOs and SLIs, error budgets, operational readiness reviews, release quality gates, and 24/7 on-call for the platform.</p>
               </div>
             </div>
@@ -427,9 +435,55 @@
         </div>
       </section>
 
-      <section id="experience">
+      <section id="decisions">
+      <div class="wrap">
+        <div class="sec-head"><span class="no">03</span><h2>Engineering decisions</h2></div>
+        <p class="sec-sub">Three calls from the platform work above, in the open: the problem, the alternatives, what was chosen, and what it cost. The systems are internal, so the decisions are described at the level that can be shared.</p>
+        <div class="rows">
+          <div class="row reveal">
+            <div>
+              <h3>Put diagnosis where engineers already talk</h3>
+              <div class="where">TEAMS ISSUE-DIAGNOSIS AGENT</div>
+            </div>
+            <div>
+              <p><strong>Problem:</strong> when a service misbehaves, the first questions are always the same, and the answers live in five different tools.</p>
+              <p><strong>Alternatives:</strong> another dashboard for engineers to remember to open, or a ticket-first workflow that starts from a blank form.</p>
+              <p><strong>Decision:</strong> an agent inside Microsoft Teams that gathers the platform context around the service and returns a diagnosis with concrete next steps.</p>
+              <p><strong>Tradeoff:</strong> a chat surface limits how much raw data can be shown, so the agent hands back a worked diagnosis instead of raw logs. In return, adoption costs nothing: no new tool to learn, no new place to check.</p>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div>
+              <h3>Make Kubernetes operations self-service APIs</h3>
+              <div class="where">KUBERNETES AUTOMATION AND PLATFORM APIS</div>
+            </div>
+            <div>
+              <p><strong>Problem:</strong> provisioning, lifecycle changes, and routine cluster operations were repeated by hand across hundreds of microservices: slow for product teams, and every manual run a chance for drift.</p>
+              <p><strong>Alternatives:</strong> keep the ticket queue and handle requests one at a time, or let teams run one-off scripts of their own.</p>
+              <p><strong>Decision:</strong> internal platform APIs in Go and Python that expose Kubernetes operations and service lifecycle management as self-service automation.</p>
+              <p><strong>Tradeoff:</strong> the platform team owns an API surface and its support instead of a ticket queue. Routine work became consistent and repeatable, and manual Kubernetes operations fell by 70%.</p>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div>
+              <h3>Feed the dashboard with events, not inventories</h3>
+              <div class="where">EVENT-DRIVEN ETL FOR THE DEVELOPER DASHBOARD</div>
+            </div>
+            <div>
+              <p><strong>Problem:</strong> service and deployment data collected by periodic inventory is stale the moment it is written down.</p>
+              <p><strong>Alternatives:</strong> scheduled collection runs, or manual updates by the teams who own each service.</p>
+              <p><strong>Decision:</strong> an event-driven pipeline in Python and Go that consumes GitHub repository creation and application deployment events, transforms the operational metadata, and loads it into PostgreSQL.</p>
+              <p><strong>Tradeoff:</strong> a pipeline has to be operated and kept reliable, where a scheduled job is simpler to run. In return, the developer dashboard stays current as events happen.</p>
+            </div>
+          </div>
+        </div>
+        <p class="sec-sub" style="margin-top:28px">Four principles run through all three: build reusable capabilities instead of one-off fixes; design for real operational conditions, with failure handling and observability as part of the design; keep intelligent systems grounded, with a clear boundary between model reasoning and operational execution; and treat developer experience as an engineering outcome, not a by-product.</p>
+      </div>
+    </section>
+
+    <section id="experience">
         <div class="wrap">
-          <div class="sec-head"><span class="no">03</span><h2>Experience</h2></div>
+          <div class="sec-head"><span class="no">04</span><h2>Experience</h2></div>
           <p class="sec-sub">A decade moving from Linux administration into DevOps, DevSecOps, and platform engineering, with AI platform work layered on top in the current role.</p>
           <div class="xp">
             <div class="xp-row">
@@ -463,7 +517,7 @@
 
       <section id="skills">
         <div class="wrap">
-          <div class="sec-head"><span class="no">04</span><h2>Skills</h2></div>
+          <div class="sec-head"><span class="no">05</span><h2>Skills</h2></div>
           <p class="sec-sub">Grouped the way the work actually breaks down.</p>
           <div class="skills">
             <div class="skill-card reveal">
@@ -484,7 +538,7 @@
             <div class="skill-card reveal">
               <h3><span class="tick">▸</span> Reliability and delivery</h3>
               <p>CI/CD standardisation, observability migrations, and the reliability practices that keep hundreds of services healthy.</p>
-              <div class="stack"><span>CI/CD</span><span>Jenkins</span><span>Azure DevOps</span><span>Dynatrace</span><span>OpenTelemetry</span><span>SLOs / SLIs</span><span>Error budgets</span><span>24/7 on-call</span></div>
+              <div class="stack"><span>CI/CD</span><span>Jenkins</span><span>GitHub Actions</span><span>Azure DevOps</span><span>Dynatrace</span><span>Splunk</span><span>OpenTelemetry</span><span>SLOs / SLIs</span><span>Error budgets</span><span>24/7 on-call</span></div>
             </div>
           </div>
         </div>
