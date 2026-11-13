@@ -384,6 +384,62 @@
               </div>
             </div>
           </article>
+
+          <article class="project reveal">
+            <div class="p-media">
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: a request comes in with an API key, a policy check runs and the operation is dry run or applied, and the result comes back recorded in the audit log.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Request with an API key</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">Policy check, then dry run or apply</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Result, recorded in the audit log</text>
+                </svg>
+              </figure>
+            </div>
+            <div>
+              <span class="p-tag">Go, API design</span>
+              <h3>Platform API</h3>
+              <p>A self-service platform API. Application teams get namespace and deployment lifecycle operations through an authenticated API instead of raw cluster access. Every write is scoped to the team's own namespaces, audit logged, and can be dry run first so the caller sees exactly what would change.</p>
+              <p>Code and tests: <a href="https://github.com/UdayKandyanam/platform-api" target="_blank" rel="noopener">github.com/UdayKandyanam/platform-api</a></p>
+              <div class="stack" aria-label="Technologies">
+                <span>Go</span><span>REST</span><span>API key auth</span><span>Audit logging</span><span>Dry runs</span><span>13 tests</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project flip reveal">
+            <div class="p-media">
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: an incident snapshot goes in, findings, cause scoring, and runbook retrieval run over it, and the diagnosis comes back with evidence and approval-gated proposals.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Incident snapshot in</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">Findings, cause scoring, and runbook retrieval</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Diagnosis with evidence and approval-gated proposals</text>
+                </svg>
+              </figure>
+            </div>
+            <div>
+              <span class="p-tag">Python, agents and evaluation</span>
+              <h3>Incident Investigator</h3>
+              <p>A read-only investigator for Kubernetes incidents. It reads a cluster snapshot, scores the likely root cause, and cites the runbook sections behind its diagnosis. It never executes anything: proposed actions are listed as proposals that need human approval, and when the evidence is thin it reports low confidence and names the data that is missing. An evaluation set of eight synthetic incidents scores every change.</p>
+              <p>Code and tests: <a href="https://github.com/UdayKandyanam/incident-investigator" target="_blank" rel="noopener">github.com/UdayKandyanam/incident-investigator</a></p>
+              <div class="stack" aria-label="Technologies">
+                <span>Python</span><span>LangGraph</span><span>BM25 retrieval</span><span>Evaluations</span><span>34 tests</span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
