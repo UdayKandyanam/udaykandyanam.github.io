@@ -283,10 +283,11 @@
           <span class="who">Uday Kandyanam</span>
           <span>Newark, Delaware</span>
           <nav aria-label="Page sections">
-            <a href="#work">Work</a>
+            <a href="#projects">Projects</a>
+            <a href="#work">Experience</a>
             <a href="#platform">Platform</a>
-            <a href="#decisions">Decisions</a>
-            <a href="#experience">Experience</a>
+            <a href="#decisions">Notes</a>
+            <a href="#experience">Career</a>
             <a href="#skills">Skills</a>
             <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
             <a href="#contact">Contact</a>
@@ -323,9 +324,73 @@
     </header>
 
     <main>
+      <section id="projects">
+        <div class="wrap">
+          <div class="sec-head"><span class="no">01</span><h2>Independent projects</h2></div>
+          <p class="sec-sub">Original projects built on my own time with public tools and synthetic data. This is the code I can show.</p>
+
+          <article class="project reveal">
+            <div class="p-media">
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: collect a snapshot from a cluster or load one from a file, eight detectors check pods, deployments, and nodes, and the report comes back with a diff mode for before and after a fix.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Collect a snapshot, or load one from a file</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">Eight detectors check pods, deployments, and nodes</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Report, with a diff mode for before and after a fix</text>
+                </svg>
+              </figure>
+            </div>
+            <div>
+              <span class="p-tag">Go, Kubernetes tooling</span>
+              <h3>KubePulse</h3>
+              <p>A CLI that reads a snapshot of a Kubernetes cluster and reports what is failing, the evidence behind each finding, and the next step. It can collect a snapshot from a live cluster through kubectl, diagnose it with eight detectors, and diff two snapshots to show what a fix resolved. Diagnose only: it changes nothing in a cluster.</p>
+              <p>Code and tests: <a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">github.com/UdayKandyanam/kubepulse</a></p>
+              <div class="stack" aria-label="Technologies">
+                <span>Go</span><span>kubectl</span><span>JSON snapshots</span><span>GitHub Actions CI</span><span>31 tests</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project flip reveal">
+            <div class="p-media">
+              <figure class="flow-diagram">
+                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: a platform question goes through retrieval over the runbook sections, and the answer comes back with the file and section cited.">
+                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="31" text-anchor="middle">Platform question</text>
+                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
+                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="99" text-anchor="middle">Retrieval over the runbook sections</text>
+                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
+                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
+                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
+                  <text class="fd-text" x="280" y="167" text-anchor="middle">Answer with the file and section cited</text>
+                </svg>
+              </figure>
+            </div>
+            <div>
+              <span class="p-tag">Python, retrieval</span>
+              <h3>Runbook Assistant</h3>
+              <p>A question answering tool over a folder of runbooks. It splits runbooks into sections, ranks them with BM25 implemented from scratch, and answers from the text with the file and section cited. When the runbooks do not cover a question, it says so instead of guessing. Ships with seven runbooks, a CLI, and an HTTP API.</p>
+              <p>Code and tests: <a href="https://github.com/UdayKandyanam/runbook-assistant" target="_blank" rel="noopener">github.com/UdayKandyanam/runbook-assistant</a></p>
+              <div class="stack" aria-label="Technologies">
+                <span>Python</span><span>BM25</span><span>FastAPI</span><span>pytest</span><span>20 tests</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section id="work">
         <div class="wrap">
-          <div class="sec-head"><span class="no">01</span><h2>Featured work</h2></div>
+          <div class="sec-head"><span class="no">02</span><h2>Professional experience</h2></div>
+          <p class="sec-sub" style="margin-bottom:10px">Responsibilities and impact from my current role, described in general terms. Internal systems are not shown; the projects above are the hands-on counterpart.</p>
           <p class="sec-sub">One connected platform at UnitedHealth Group, not a set of side projects: shared platform services, automation, and developer tooling that hundreds of microservices run on. The first two builds below are LLM agents used by platform engineers, the third is the automation layer underneath them, and the systems after that are the portal, data pipeline, and delivery platform they sit on. Internal systems, so the detail here is the shape of the work rather than screenshots.</p>
 
           <article class="project reveal">
@@ -352,25 +417,6 @@
               </div>
               <p><strong>Under the hood:</strong> a multi-step LangGraph workflow. The agent gathers platform context through platform APIs and observability signals, reasons over what it finds step by step, and replies in the thread.</p>
               <p><strong>Safety boundary:</strong> the agent diagnoses and recommends. It does not change production systems; engineers review the diagnosis and make any changes themselves.</p>
-              <figure class="flow-diagram">
-                <svg viewBox="0 0 560 256" role="img" aria-label="Flow diagram: an engineer posts in Microsoft Teams, a LangGraph workflow gathers context from platform APIs and observability signals, and the diagnosis and next steps come back in the thread.">
-                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="31" text-anchor="middle">Engineer posts in Microsoft Teams</text>
-                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
-                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
-                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="99" text-anchor="middle">LangGraph workflow</text>
-                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
-                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
-                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="167" text-anchor="middle">Platform APIs and observability signals</text>
-                  <line class="fd-arrow" x1="280" y1="184" x2="280" y2="200" />
-                  <polygon points="274,198 286,198 280,208" fill="var(--teal)" />
-                  <rect class="fd-box" x="40" y="208" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="235" text-anchor="middle">Diagnosis and next steps in the thread</text>
-                </svg>
-                <figcaption>The agent diagnoses and recommends. Engineers make any production changes.</figcaption>
-              </figure>
               <div class="sample">
                 <h4>Illustrative example</h4>
                 <p class="sample-note">A synthetic exchange in the shape of a real one. The service name is invented; this is not a transcript.</p>
@@ -395,20 +441,6 @@
             <p>Platform teams answer the same questions every week: how a service gets onboarded, where a runbook lives, what a pipeline stage is waiting on. The answers exist, scattered across internal documentation, runbooks, and portal pages.</p>
               <p>The knowledge assistant <strong>answers platform questions directly from that internal material</strong>, so engineers get the procedure, the link, and the context in one reply instead of interrupting a platform engineer or digging through search results.</p>
               <p><strong>Under the hood:</strong> retrieval over internal platform documentation and runbooks. Answers are grounded in that material and come back with the procedure, the source link, and the context, not model guesswork.</p>
-              <figure class="flow-diagram">
-                <svg viewBox="0 0 560 188" role="img" aria-label="Flow diagram: a platform question goes through retrieval over internal documentation and runbooks, and the answer comes back with the procedure, the source link, and context.">
-                  <rect class="fd-box" x="40" y="4" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="31" text-anchor="middle">Platform question</text>
-                  <line class="fd-arrow" x1="280" y1="48" x2="280" y2="64" />
-                  <polygon points="274,62 286,62 280,72" fill="var(--teal)" />
-                  <rect class="fd-box" x="40" y="72" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="99" text-anchor="middle">Retrieval over internal documentation and runbooks</text>
-                  <line class="fd-arrow" x1="280" y1="116" x2="280" y2="132" />
-                  <polygon points="274,130 286,130 280,140" fill="var(--teal)" />
-                  <rect class="fd-box" x="40" y="140" width="480" height="44" rx="10" />
-                  <text class="fd-text" x="280" y="167" text-anchor="middle">Answer with the procedure, the source link, and context</text>
-                </svg>
-              </figure>
               <ul class="did">
                 <li><strong>Grounded in internal sources:</strong> answers drawn from platform documentation and runbooks, not model guesswork</li>
                 <li><strong>Built for repeat questions:</strong> onboarding, service lifecycle, and how-to questions the team fields daily</li>
@@ -450,7 +482,7 @@
 
       <section id="platform">
         <div class="wrap">
-          <div class="sec-head"><span class="no">02</span><h2>More platform work</h2></div>
+          <div class="sec-head"><span class="no">03</span><h2>More platform work</h2></div>
           <p class="sec-sub">The surrounding systems at UnitedHealth Group that the agents and automation sit on top of.</p>
           <div class="rows">
             <div class="row reveal">
@@ -492,7 +524,8 @@
 
       <section id="decisions">
       <div class="wrap">
-        <div class="sec-head"><span class="no">03</span><h2>Engineering decisions</h2></div>
+        <div class="sec-head"><span class="no">04</span><h2>Engineering notes</h2></div>
+        <p class="sec-sub" style="margin-bottom:10px">General lessons and tradeoffs from platform work, written without employer specifics.</p>
         <p class="sec-sub">Three calls from the platform work above, in the open: the problem, the alternatives, what was chosen, and what it cost. The systems are internal, so the decisions are described at the level that can be shared.</p>
         <div class="rows">
           <div class="row reveal">
@@ -538,7 +571,7 @@
 
     <section id="experience">
         <div class="wrap">
-          <div class="sec-head"><span class="no">04</span><h2>Experience</h2></div>
+          <div class="sec-head"><span class="no">05</span><h2>Experience</h2></div>
           <p class="sec-sub">A decade moving from Linux administration into DevOps, DevSecOps, and platform engineering, with AI platform work layered on top in the current role.</p>
           <div class="xp">
             <div class="xp-row">
@@ -572,7 +605,7 @@
 
       <section id="skills">
         <div class="wrap">
-          <div class="sec-head"><span class="no">05</span><h2>Skills</h2></div>
+          <div class="sec-head"><span class="no">06</span><h2>Skills</h2></div>
           <p class="sec-sub">Grouped the way the work actually breaks down.</p>
           <div class="skills">
             <div class="skill-card reveal">
