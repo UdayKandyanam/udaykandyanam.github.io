@@ -251,6 +251,13 @@
         :focus-visible { outline: 2px solid #0e7a63; outline-offset: 2px; }
           .outcome-lead { margin-bottom: 10px; }
         .sample { border: 1px solid var(--line-strong, #d8d0bd); border-radius: 12px; padding: 16px 18px; margin: 18px 0; background: var(--surface); }
+      .term { background: #0d2033; border: 1px solid var(--line-strong); border-radius: 12px; margin: 18px 0; overflow: hidden; }
+      .term .term-head { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.05em; color: #9fb4c0; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.14); }
+      .term pre { margin: 0; padding: 14px 16px; overflow-x: auto; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; line-height: 1.6; color: #dce7ec; }
+      .term .cmd { color: #7ee2c0; }
+      .rec { margin: 16px 0; padding-left: 16px; border-left: 3px solid var(--teal); }
+      .rec p { margin: 0 0 6px; font-size: 16.5px; }
+      .rec .who { font-size: 12.5px; color: var(--ink-3); font-family: "IBM Plex Mono", monospace; letter-spacing: 0.03em; }
         .sample h4 { margin: 0 0 6px; }
         .sample p { margin: 6px 0; }
         .sample .who { font-weight: 700; }
@@ -273,7 +280,7 @@
     <meta name="twitter:description" content="Uday Kandyanam, Senior Software Engineer: Kubernetes platforms, CI/CD, and production LLM agents for platform teams at UnitedHealth Group." />
     <meta name="twitter:image" content="https://udaykandyanam.com/og-image.jpg" />
     <script type="application/ld+json">
-    {"@context": "https://schema.org", "@type": "Person", "name": "Uday Kandyanam", "jobTitle": "Senior Software Engineer", "url": "https://udaykandyanam.com/", "email": "mailto:kandyanam.uday@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Newark", "addressRegion": "DE", "addressCountry": "US"}, "worksFor": {"@type": "Organization", "name": "UnitedHealth Group"}, "sameAs": ["https://github.com/udaykandyanam", "https://www.linkedin.com/in/udaykandyanam/"]}
+    {"@context": "https://schema.org", "@type": "Person", "name": "Uday Kandyanam", "jobTitle": "Senior Software Engineer", "url": "https://udaykandyanam.com/", "address": {"@type": "PostalAddress", "addressLocality": "Newark", "addressRegion": "DE", "addressCountry": "US"}, "worksFor": {"@type": "Organization", "name": "UnitedHealth Group"}, "sameAs": ["https://github.com/udaykandyanam", "https://www.linkedin.com/in/udaykandyanam/"]}
     </script>
   </head>
   <body>
@@ -284,10 +291,9 @@
           <span>Newark, Delaware</span>
           <nav aria-label="Page sections">
             <a href="#projects">Projects</a>
-            <a href="#work">Experience</a>
+            <a href="#work">Work</a>
             <a href="#platform">Platform</a>
-            <a href="#decisions">Notes</a>
-            <a href="#experience">Career</a>
+            <a href="#experience">Timeline</a>
             <a href="#skills">Skills</a>
             <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
             <a href="#contact">Contact</a>
@@ -350,6 +356,24 @@
               <span class="p-tag">Go, Kubernetes tooling</span>
               <h3>KubePulse</h3>
               <p>A CLI that reads a snapshot of a Kubernetes cluster and reports what is failing, the evidence behind each finding, and the next step. It can collect a snapshot from a live cluster through kubectl, diagnose it with eight detectors, and diff two snapshots to show what a fix resolved. Diagnose only: it changes nothing in a cluster.</p>
+              <p>The same engine also runs as an MCP server: <a href="https://github.com/UdayKandyanam/kubepulse-mcp" target="_blank" rel="noopener">KubePulse MCP</a> wraps the diagnose and diff commands as tools an LLM client can call.</p>
+              <div class="term">
+                <div class="term-head">ACTUAL OUTPUT · DIFF MODE, RUN ON THE SAMPLE SNAPSHOTS IN THE REPO</div>
+                <pre><span class="cmd">$ kubepulse diff examples/healthy.json examples/broken.json</span>
+KubePulse diff for demo-cluster
+9 new, 0 resolved, 0 unchanged
+
+NEW (9)
+  Node node-02: node is reporting MemoryPressure
+  Node node-03: node is reporting DiskPressure
+  Deployment shop/checkout: rollout is stuck at 1 of 3 updated replicas
+  Pod batch/worker-5c7d8e9f6-m4n8q: container worker was OOMKilled (exit code 137) and has restarted 6 times
+  Pod shop/api-7849c6f5d9-xk2lp: container api is in CrashLoopBackOff after 14 restarts
+  Pod shop/web-6b9d7c4f8-p7r3s: container web cannot pull image registry.example.com/shop/web:v2.4.1 (ImagePullBackOff)
+  Pod batch/report-job-8f6e5d4c3-t9w2z: pod has been Pending and cannot be scheduled
+  Pod shop/cache-7f8e6d5c4-j6k9m: container cache is using 94% of its memory limit
+  Pod tools/debug-shell: containers without resource limits: shell</pre>
+              </div>
               <p>Code and tests: <a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">github.com/UdayKandyanam/kubepulse</a></p>
               <div class="stack" aria-label="Technologies">
                 <span>Go</span><span>kubectl</span><span>JSON snapshots</span><span>GitHub Actions CI</span><span>31 tests</span>
@@ -434,6 +458,24 @@
               <span class="p-tag">Python, agents and evaluation</span>
               <h3>Incident Investigator</h3>
               <p>A read-only investigator for Kubernetes incidents. It reads a cluster snapshot, scores the likely root cause, and cites the runbook sections behind its diagnosis. It never executes anything: proposed actions are listed as proposals that need human approval, and when the evidence is thin it reports low confidence and names the data that is missing. An evaluation set of eight synthetic incidents scores every change.</p>
+              <div class="term">
+                <div class="term-head">ACTUAL OUTPUT · ONE OF THE EIGHT EVALUATION CASES IN THE REPO</div>
+                <pre><span class="cmd">$ python -m incident_investigator investigate cases/case-03-oom-killed.json</span>
+Case: case-03-oom-killed, Report generator dies on every large export
+Diagnosis: oom_killed (confidence: high)
+Summary: A container was killed for exceeding its memory limit.
+
+Evidence:
+- pod report-generator-7b9c8d6f5-w3n8p container report-generator was OOMKilled on its last exit (restart count 6, memory limit 256Mi)
+
+Runbook sections:
+- runbooks/crash-loops.md, section "Checks"
+- runbooks/memory-pressure-and-oom.md, section "Fix"
+
+Proposed actions (each one requires human approval):
+- Compare the memory limit with the peak usage of the workload and size the limit to the real working set [requires_approval: true]
+- Check the hot code path for unbounded caching or whole file loads and cap it [requires_approval: true]</pre>
+              </div>
               <p>Code and tests: <a href="https://github.com/UdayKandyanam/incident-investigator" target="_blank" rel="noopener">github.com/UdayKandyanam/incident-investigator</a></p>
               <div class="stack" aria-label="Technologies">
                 <span>Python</span><span>LangGraph</span><span>BM25 retrieval</span><span>Evaluations</span><span>34 tests</span>
@@ -445,9 +487,9 @@
 
       <section id="work">
         <div class="wrap">
-          <div class="sec-head"><span class="no">02</span><h2>Professional experience</h2></div>
-          <p class="sec-sub" style="margin-bottom:10px">Responsibilities and impact from my current role, described in general terms. Internal systems are not shown; the projects above are the hands-on counterpart.</p>
-          <p class="sec-sub">One connected platform at UnitedHealth Group, not a set of side projects: shared platform services, automation, and developer tooling that hundreds of microservices run on. The first two builds below are LLM agents used by platform engineers, the third is the automation layer underneath them, and the systems after that are the portal, data pipeline, and delivery platform they sit on. Internal systems, so the detail here is the shape of the work rather than screenshots.</p>
+          <div class="sec-head"><span class="no">02</span><h2>Work</h2></div>
+          <p class="sec-sub" style="margin-bottom:10px">Responsibilities and impact from my current role, described in general terms. The projects above are the hands-on counterpart.</p>
+          <p class="sec-sub">One connected platform at UnitedHealth Group, not a set of side projects: shared platform services, automation, and developer tooling that hundreds of microservices run on. The first two builds below are LLM agents used by platform engineers, the third is the automation layer underneath them, and the systems after that are the portal, data pipeline, and delivery platform they sit on.</p>
 
           <article class="project reveal">
             <div class="p-media">
@@ -473,13 +515,14 @@
               </div>
               <p><strong>Under the hood:</strong> a multi-step LangGraph workflow. The agent gathers platform context through platform APIs and observability signals, reasons over what it finds step by step, and replies in the thread.</p>
               <p><strong>Safety boundary:</strong> the agent diagnoses and recommends. It does not change production systems; engineers review the diagnosis and make any changes themselves.</p>
+              <p><strong>Tradeoff:</strong> a chat surface limits how much raw data can be shown, so the agent hands back a worked diagnosis instead of raw logs. In return, adoption costs nothing: no new tool to learn, no new place to check.</p>
               <div class="sample">
                 <h4>Illustrative example</h4>
                 <p class="sample-note">A synthetic exchange in the shape of a real one. The service name is invented; this is not a transcript.</p>
                 <p><span class="who">Engineer:</span> claims-api is failing its health checks since the last deployment. What changed?</p>
                 <p><span class="who">Agent:</span> Likely cause: memory pressure after the latest deployment; the platform keeps restarting the service. Context gathered: the recent deployment event, the failing health checks, and the service resource signals. Next steps: compare memory limits with the previous release, roll back if the restarts continue, and work through the service health-check runbook.</p>
               </div>
-              <p>The internal agent cannot be shown. <a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">KubePulse</a> is a personal project in the same problem space: a Go CLI that reads a cluster snapshot and reports what is failing, the evidence, and the next step.</p>
+              <p><a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">KubePulse</a> is a personal project in the same problem space: a Go CLI that reads a cluster snapshot and reports what is failing, the evidence, and the next step.</p>
               <div class="stack" aria-label="Technologies">
                 <span>LLM agents</span><span>Microsoft Teams</span><span>Python</span><span>Platform APIs</span><span>Observability signals</span><span>LangChain</span><span>LangGraph</span><span>Tool calling</span>
               </div>
@@ -524,6 +567,7 @@
                 <li><strong>Go and Python automation:</strong> the tooling layer platform and product teams build on</li>
                 <li><strong>Production support:</strong> deployments, CI/CD, and troubleshooting for Java applications, including Spring Boot microservices on Kubernetes</li>
               </ul>
+              <p><strong>Tradeoff:</strong> the platform team owns an API surface and its support instead of a ticket queue. In return, routine work became consistent and repeatable across teams.</p>
               <div class="outcome">
                 <span class="big">70%</span>
                 <p>Reduction in manual Kubernetes operations, with the routine work absorbed by automation instead of engineers.</p>
@@ -538,7 +582,7 @@
 
       <section id="platform">
         <div class="wrap">
-          <div class="sec-head"><span class="no">03</span><h2>More platform work</h2></div>
+          <div class="sec-head"><span class="no">03</span><h2>Platform work</h2></div>
           <p class="sec-sub">The surrounding systems at UnitedHealth Group that the agents and automation sit on top of.</p>
           <div class="rows">
             <div class="row reveal">
@@ -560,7 +604,7 @@
               <div>
                 <p class="outcome-lead"><strong>Outcome:</strong> the developer dashboard stays current as repository and deployment events happen, rather than by manual inventory.</p>
             <p>An event-driven pipeline in <strong>Python and Go</strong> that consumes GitHub repository creation and application deployment events, transforms the operational metadata, and loads it into <strong>PostgreSQL</strong>.</p>
-                <p>The pipeline powers the internal developer dashboard, keeping service and deployment data current as events happen rather than by manual inventory.</p>
+                <p>The pipeline powers the internal developer dashboard, keeping service and deployment data current as events happen rather than by manual inventory. The tradeoff is operating a pipeline that has to stay reliable, where a scheduled job would be simpler to run.</p>
               </div>
             </div>
             <div class="row reveal">
@@ -570,64 +614,37 @@
               </div>
               <div>
                 <p class="outcome-lead"><strong>Outcome:</strong> standardized CI/CD and a completed observability migration, recognized in recommendations from the Principal Engineer and Director on the team.</p>
-            <p>Standardized CI/CD across services and migrated observability to <strong>Dynatrace SaaS across 100+ services</strong>, work recognized in LinkedIn recommendations from the Principal Engineer and Director on the team.</p>
+            <p>Standardized CI/CD across services and migrated observability to <strong>Dynatrace SaaS across hundreds of services</strong>, work recognized in LinkedIn recommendations from the Principal Engineer and Director on the team.</p>
                 <p>Also part of the platform-wide remit: SLOs and SLIs, error budgets, operational readiness reviews, release quality gates, and 24/7 on-call for the platform.</p>
               </div>
             </div>
+            <div class="row reveal">
+              <div>
+                <h3>Service Mesh, Control Planes, and Telemetry</h3>
+                <div class="where">UNITEDHEALTH GROUP</div>
+              </div>
+              <div>
+                <p>The rest of the platform plumbing: Istio for service mesh traffic management and policy, Crossplane for provisioning cloud resources through Kubernetes, OpenTelemetry instrumentation and collectors alongside the Dynatrace migration, and Splunk searches for log investigation during incidents and on-call.</p>
+              </div>
+            </div>
           </div>
+          <blockquote class="rec reveal">
+            <p>"On our team he standardized CI/CD delivery across more than 100 microservices and led the migration of over 100 services from self-hosted Dynatrace to Dynatrace SaaS."</p>
+            <span class="who">WILLIAM SPENCER · PRINCIPAL ENGINEER, UNITEDHEALTH GROUP</span>
+          </blockquote>
+          <blockquote class="rec reveal">
+            <p>"His work included driving cloud cost optimization, supporting our Dynatrace cloud migration, improving CI/CD capabilities across 100+ microservices, and developing vulnerability dashboards that strengthened security visibility."</p>
+            <span class="who">SAJI MATTAMANA · DIRECTOR, PLATFORM ENGINEERING, UNITEDHEALTH GROUP</span>
+          </blockquote>
+          <p class="sec-sub" style="margin-top:14px">Full recommendations on <a href="https://www.linkedin.com/in/udaykandyanam/details/recommendations/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+          <p class="sec-sub" style="margin-top:28px">Four principles run through the work above: build reusable capabilities instead of one-off fixes; design for real operational conditions, with failure handling and observability as part of the design; keep intelligent systems grounded, with a clear boundary between model reasoning and operational execution; and treat developer experience as an engineering outcome, not a by-product.</p>
         </div>
       </section>
 
-      <section id="decisions">
-      <div class="wrap">
-        <div class="sec-head"><span class="no">04</span><h2>Engineering notes</h2></div>
-        <p class="sec-sub" style="margin-bottom:10px">General lessons and tradeoffs from platform work, written without employer specifics.</p>
-        <p class="sec-sub">Three calls from the platform work above, in the open: the problem, the alternatives, what was chosen, and what it cost. The systems are internal, so the decisions are described at the level that can be shared.</p>
-        <div class="rows">
-          <div class="row reveal">
-            <div>
-              <h3>Put diagnosis where engineers already talk</h3>
-              <div class="where">TEAMS ISSUE-DIAGNOSIS AGENT</div>
-            </div>
-            <div>
-              <p><strong>Problem:</strong> when a service misbehaves, the first questions are always the same, and the answers live in five different tools.</p>
-              <p><strong>Alternatives:</strong> another dashboard for engineers to remember to open, or a ticket-first workflow that starts from a blank form.</p>
-              <p><strong>Decision:</strong> an agent inside Microsoft Teams that gathers the platform context around the service and returns a diagnosis with concrete next steps.</p>
-              <p><strong>Tradeoff:</strong> a chat surface limits how much raw data can be shown, so the agent hands back a worked diagnosis instead of raw logs. In return, adoption costs nothing: no new tool to learn, no new place to check.</p>
-            </div>
-          </div>
-          <div class="row reveal">
-            <div>
-              <h3>Make Kubernetes operations self-service APIs</h3>
-              <div class="where">KUBERNETES AUTOMATION AND PLATFORM APIS</div>
-            </div>
-            <div>
-              <p><strong>Problem:</strong> provisioning, lifecycle changes, and routine cluster operations were repeated by hand across hundreds of microservices: slow for product teams, and every manual run a chance for drift.</p>
-              <p><strong>Alternatives:</strong> keep the ticket queue and handle requests one at a time, or let teams run one-off scripts of their own.</p>
-              <p><strong>Decision:</strong> internal platform APIs in Go and Python that expose Kubernetes operations and service lifecycle management as self-service automation.</p>
-              <p><strong>Tradeoff:</strong> the platform team owns an API surface and its support instead of a ticket queue. Routine work became consistent and repeatable, and manual Kubernetes operations fell by 70%.</p>
-            </div>
-          </div>
-          <div class="row reveal">
-            <div>
-              <h3>Feed the dashboard with events, not inventories</h3>
-              <div class="where">EVENT-DRIVEN ETL FOR THE DEVELOPER DASHBOARD</div>
-            </div>
-            <div>
-              <p><strong>Problem:</strong> service and deployment data collected by periodic inventory is stale the moment it is written down.</p>
-              <p><strong>Alternatives:</strong> scheduled collection runs, or manual updates by the teams who own each service.</p>
-              <p><strong>Decision:</strong> an event-driven pipeline in Python and Go that consumes GitHub repository creation and application deployment events, transforms the operational metadata, and loads it into PostgreSQL.</p>
-              <p><strong>Tradeoff:</strong> a pipeline has to be operated and kept reliable, where a scheduled job is simpler to run. In return, the developer dashboard stays current as events happen.</p>
-            </div>
-          </div>
-        </div>
-        <p class="sec-sub" style="margin-top:28px">Four principles run through all three: build reusable capabilities instead of one-off fixes; design for real operational conditions, with failure handling and observability as part of the design; keep intelligent systems grounded, with a clear boundary between model reasoning and operational execution; and treat developer experience as an engineering outcome, not a by-product.</p>
-      </div>
-    </section>
 
     <section id="experience">
         <div class="wrap">
-          <div class="sec-head"><span class="no">05</span><h2>Experience</h2></div>
+          <div class="sec-head"><span class="no">04</span><h2>Timeline</h2></div>
           <p class="sec-sub">A decade moving from Linux administration into DevOps, DevSecOps, and platform engineering, with AI platform work layered on top in the current role.</p>
           <div class="xp">
             <div class="xp-row">
@@ -661,7 +678,7 @@
 
       <section id="skills">
         <div class="wrap">
-          <div class="sec-head"><span class="no">06</span><h2>Skills</h2></div>
+          <div class="sec-head"><span class="no">05</span><h2>Skills</h2></div>
           <p class="sec-sub">Grouped the way the work actually breaks down.</p>
           <div class="skills">
             <div class="skill-card reveal">
@@ -691,7 +708,7 @@
       <div class="contact" id="contact">
         <div class="wrap">
           <h2>Talking about a platform, DevOps, SRE, or AI platform role?</h2>
-          <p>The fastest way to see the work is the case studies and engineering decisions on this page. For roles, email is best: a short note about the team and the stack is plenty to start.</p>
+          <p>The fastest way to see the work is the projects and case studies on this page. For roles, email is best: a short note about the team and the stack is plenty to start.</p>
           <div class="cta-row">
             <a class="btn btn-light" href="mailto:kandyanam.uday@gmail.com?subject=Role%20conversation">Email Uday</a>
             <a class="btn btn-outline-light" href="https://github.com/udaykandyanam" target="_blank" rel="noopener">github.com/udaykandyanam</a>
@@ -707,7 +724,7 @@
     <footer>
       <div class="wrap">
         <span>Uday Kandyanam · Newark, Delaware</span>
-        <span><a href="https://github.com/udaykandyanam" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/udaykandyanam/" target="_blank" rel="noopener">LinkedIn</a> · <a href="resume.pdf" target="_blank" rel="noopener">Resume</a> · <a href="mailto:kandyanam.uday@gmail.com">kandyanam.uday@gmail.com</a></span>
+        <span><a href="https://github.com/udaykandyanam" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/udaykandyanam/" target="_blank" rel="noopener">LinkedIn</a> · <a href="resume.pdf" target="_blank" rel="noopener">Resume</a> · <a href="mailto:kandyanam.uday@gmail.com">Email</a></span>
       </div>
     </footer>
 
