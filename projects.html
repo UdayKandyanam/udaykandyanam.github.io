@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Independent projects by Uday Kandyanam: KubePulse, Incident Investigator, Runbook Assistant, Platform API, and more. Original code, public on GitHub, with real output shown on the page." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://udaykandyanam.com/projects.html" />
+    <meta property="og:title" content="Independent Projects · Uday Kandyanam" />
+    <meta property="og:description" content="Original projects built on my own time with public tools and synthetic data: a Kubernetes diagnosis CLI, a read-only incident investigator, a runbook assistant, a self-service platform API, and more." />
+    <meta property="og:image" content="https://udaykandyanam.com/og-projects.png" />
+    <title>Independent Projects · Uday Kandyanam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600&family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root { --paper:#f6f1e7; --ink:#12212e; --ink-2:#3d4f5e; --teal:#0e7a63; --line-strong:#c9bb9c; --navy:#0d2033; }
+      @media (prefers-color-scheme: dark) { :root { --paper:#0a1826; --ink:#f0ead9; --ink-2:#c3cdd4; --teal:#2fbd97; --line-strong:#335873; } }
+      * { box-sizing: border-box; }
+      body { margin:0; background:var(--paper); color:var(--ink); font-family:"Manrope",system-ui,sans-serif; font-size:17px; line-height:1.6; }
+      .wrap { max-width: 900px; margin: 0 auto; padding: 0 22px; }
+      header { padding: 34px 0 6px; border-bottom: 1px solid var(--line-strong); }
+      header .wrap { display:flex; justify-content:space-between; align-items:center; padding-bottom:14px; }
+      header a { color: var(--ink-2); text-decoration: none; font-weight: 700; }
+      header a:hover { color: var(--teal); }
+      h1 { font-family:"Newsreader",Georgia,serif; font-size: clamp(34px, 5vw, 46px); margin: 38px 0 12px; }
+      .lede { color: var(--ink-2); font-size: 19px; max-width: 38em; }
+      .proj { border-top: 1px solid var(--line-strong); padding: 22px 0 6px; }
+      .proj h2 { font-size: 22px; margin: 0 0 6px; }
+      .proj h2 a { color: var(--ink); text-decoration: none; }
+      .proj h2 a:hover { color: var(--teal); }
+      .proj p { margin: 0 0 10px; color: var(--ink-2); }
+      .tag { font-family:"IBM Plex Mono",monospace; font-size: 12.5px; color: var(--teal); letter-spacing: 0.04em; }
+      .term { background:#0d2033; border:1px solid var(--line-strong); border-radius:12px; margin:18px 0 26px; overflow:hidden; }
+      .term .term-head { font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:0.05em; color:#9fb4c0; padding:9px 14px; border-bottom:1px solid rgba(255,255,255,0.14); }
+      .term pre { margin:0; padding:14px 16px; overflow-x:auto; font-family:"IBM Plex Mono",monospace; font-size:12.5px; line-height:1.6; color:#dce7ec; }
+      .term .cmd { color:#7ee2c0; }
+      footer { padding: 30px 0 44px; color: var(--ink-2); font-size: 15px; }
+      footer a { color: var(--teal); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <a href="https://udaykandyanam.com/">Uday Kandyanam</a>
+        <a href="https://github.com/udaykandyanam" target="_blank" rel="noopener">GitHub profile</a>
+      </div>
+    </header>
+    <main class="wrap">
+      <h1>Independent projects</h1>
+      <p class="lede">Original projects built on my own time with public tools and synthetic data. This is the code I can show: every project is public on GitHub with tests and green CI.</p>
+
+      <div class="proj">
+        <span class="tag">GO · KUBERNETES TOOLING</span>
+        <h2><a href="https://github.com/UdayKandyanam/kubepulse" target="_blank" rel="noopener">KubePulse</a></h2>
+        <p>A CLI that reads a snapshot of a Kubernetes cluster and reports what is failing, the evidence behind each finding, and the next step. Eight detectors, a collect command that snapshots a live cluster through kubectl, and a diff mode that shows what a fix resolved. Diagnose only: it changes nothing in a cluster.</p>
+        <div class="term">
+          <div class="term-head">ACTUAL OUTPUT · DIFF MODE, RUN ON THE SAMPLE SNAPSHOTS IN THE REPO</div>
+          <pre><span class="cmd">$ kubepulse diff examples/healthy.json examples/broken.json</span>
+KubePulse diff for demo-cluster
+9 new, 0 resolved, 0 unchanged
+
+NEW (9)
+  Node node-02: node is reporting MemoryPressure
+  Node node-03: node is reporting DiskPressure
+  Deployment shop/checkout: rollout is stuck at 1 of 3 updated replicas
+  Pod batch/worker-5c7d8e9f6-m4n8q: container worker was OOMKilled (exit code 137) and has restarted 6 times
+  Pod shop/api-7849c6f5d9-xk2lp: container api is in CrashLoopBackOff after 14 restarts
+  Pod shop/web-6b9d7c4f8-p7r3s: container web cannot pull image registry.example.com/shop/web:v2.4.1 (ImagePullBackOff)
+  Pod batch/report-job-8f6e5d4c3-t9w2z: pod has been Pending and cannot be scheduled
+  Pod shop/cache-7f8e6d5c4-j6k9m: container cache is using 94% of its memory limit
+  Pod tools/debug-shell: containers without resource limits: shell</pre>
+        </div>
+      </div>
+
+      <div class="proj">
+        <span class="tag">PYTHON · AGENTS AND EVALUATION</span>
+        <h2><a href="https://github.com/UdayKandyanam/incident-investigator" target="_blank" rel="noopener">Incident Investigator</a></h2>
+        <p>A read-only investigator for Kubernetes incidents. It reads a cluster snapshot, scores the likely root cause, and cites the runbook sections behind its diagnosis. Proposed actions are listed as proposals that need human approval, and thin evidence gets a low confidence report instead of a guess. An evaluation set of eight synthetic incidents scores every change.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">PYTHON · MCP SERVER</span>
+        <h2><a href="https://github.com/UdayKandyanam/kubepulse-mcp" target="_blank" rel="noopener">KubePulse MCP</a></h2>
+        <p>An MCP server over stdio that exposes KubePulse diagnose and diff as tools an LLM client can call, so an assistant can check a cluster snapshot inside a conversation.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">PYTHON · RETRIEVAL</span>
+        <h2><a href="https://github.com/UdayKandyanam/runbook-assistant" target="_blank" rel="noopener">Runbook Assistant</a></h2>
+        <p>Question answering over a folder of runbooks. BM25 ranking implemented from scratch, answers grounded in the text with the file and section cited, and an honest refusal when the runbooks do not cover the question. Ships with seven runbooks, a CLI, and an HTTP API.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">GO · API DESIGN</span>
+        <h2><a href="https://github.com/UdayKandyanam/platform-api" target="_blank" rel="noopener">Platform API</a></h2>
+        <p>A self-service platform API: namespace and deployment lifecycle operations through an authenticated API instead of raw cluster access. Every write is scoped to the team's own namespaces, audit logged, and can be dry run first.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">PYTHON · FASTAPI</span>
+        <h2><a href="https://github.com/UdayKandyanam/developer-intelligence" target="_blank" rel="noopener">Developer Intelligence</a></h2>
+        <p>GitHub webhook ingestion (push, deployment, repository events) with HMAC signature verification, normalized into SQLite behind a small read API: the event pipeline shape behind a developer dashboard.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">TERRAFORM · AWS EKS</span>
+        <h2><a href="https://github.com/UdayKandyanam/terraform-eks-node-group" target="_blank" rel="noopener">Terraform EKS Node Group</a></h2>
+        <p>A Terraform module for an EKS managed node group with typed, validated inputs and the standard node IAM policies, tested with the mock AWS provider.</p>
+      </div>
+
+      <div class="proj">
+        <span class="tag">PYTHON · PROMETHEUS · GRAFANA</span>
+        <h2><a href="https://github.com/UdayKandyanam/slo-lab" target="_blank" rel="noopener">SLO Lab</a></h2>
+        <p>A 99.9 percent SLO worked end to end: a sample service with metrics and a chaos endpoint, fast and slow burn alerts, and a Grafana error budget dashboard, on Docker Compose.</p>
+      </div>
+
+      <footer>
+        <p>Professional work and full background: <a href="https://udaykandyanam.com/">udaykandyanam.com</a> · <a href="https://www.linkedin.com/in/udaykandyanam/" target="_blank" rel="noopener">LinkedIn</a></p>
+      </footer>
+    </main>
+  </body>
+</html>
